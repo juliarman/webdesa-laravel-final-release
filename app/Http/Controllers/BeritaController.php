@@ -18,8 +18,8 @@ class BeritaController extends Controller
     public function index()
     {
         $users = User::all();
-        $berita = Berita::where('status', 'Terbit')->paginate(6);
-        $headlinePost = Berita::paginate(1);
+        $berita = Berita::where('status', 'Terbit')->orderBy('created_at', 'desc')->paginate(6);
+        $headlinePost = Berita::where('status', 'Terbit')->orderBy('created_at', 'desc')->paginate(1);
 
 
         return view('pages.berita.berita', compact('users', 'berita', 'headlinePost'));
@@ -27,14 +27,8 @@ class BeritaController extends Controller
 
 
 
-
-
-
-
-
     public function show(Berita $berita, Agenda $agenda)
     {
-
         return view('pages.berita.detail', compact('berita', 'agenda'));
     }
 
@@ -94,13 +88,13 @@ class BeritaController extends Controller
     public function hapus(Berita $idBerita)
     {
         Berita::destroy($idBerita->berita_id);
-        return redirect('list-berita')->with('message', 'BERITA BERHASIL DIHAPUS');
+        return redirect('list-berita')->with('status', 'BERITA BERHASIL DIHAPUS');
     }
 
     public function listBerita()
     {
         $categories = Categories::all();
-        $listBerita = Berita::paginate(4);
+        $listBerita = Berita::orderBy('created_at', 'desc')->paginate(4);
         return view('pages.administrator.listberita', compact('listBerita', 'categories'));
     }
 
@@ -109,6 +103,7 @@ class BeritaController extends Controller
     {
         $newKategori = new Categories;
         $newKategori->name = $kategori->nama_kategori;
+        $newKategori->slug = str_slug($kategori->nama_kategori);
         $newKategori->description = $kategori->deskripsi;
         $newKategori->save();
         return redirect('list-berita')->with('message', 'KATEGORI BERHASIL DIBUAT');
@@ -144,5 +139,14 @@ class BeritaController extends Controller
     {
         Categories::destroy($id->categories_id);
         return redirect('list-berita')->with('message', 'KATEGORI BERHASIL DI HAPUS');
+    }
+
+
+    public function showArtikelCategories(Categories $categories)
+    {
+
+        $article = $categories->artikel()->get();
+
+        return view('pages.list_article_category', compact('article'));
     }
 }

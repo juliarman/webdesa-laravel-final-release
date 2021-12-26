@@ -65,8 +65,8 @@
 
 
                 <div class="col-lg-3">
-                    <button class="btn btn-warning mr-2 mb-3" data-bs-toggle="modal"
-                        data-bs-target="#modalListKategori">LIST KATEGORI BERITA<i class="fa fa-th-list m-2"></i></button>
+                    <button class="btn btn-info mr-2 mb-3" data-bs-toggle="modal" data-bs-target="#modalListKategori">LIST
+                        KATEGORI BERITA<i class="fa fa-th-list m-2"></i></button>
                 </div>
 
                 <div class="modal fade" id="modalListKategori" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -110,6 +110,17 @@
             @if (session('message'))
                 <div class="alert alert-primary">
                     {{ session('message') }}
+                </div>
+            @endif
+
+
+
+            @if (session('status'))
+                <div data-dismiss="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>DELETE BERITA!</strong> {{ session('status') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
 

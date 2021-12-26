@@ -38,19 +38,19 @@ class AlbumController extends Controller
         $album->deskripsi = $albumRequest->deskripsiAlbum;
         // dd($album);
         $album->save();
-        return redirect('album-admin')->with('message', 'ALBUM BERHASIL DIBUAT');
+        return redirect('album-admin')->with('message', 'ALBUM BERHASIL DI BUAT');
     }
 
     public function delete(Album $id)
     {
         Album::destroy($id->album_id);
-        return redirect('album-admin')->with('message', 'Album Berhasi Di Hapus');
+        return redirect('album-admin')->with('status', 'ALBUM BERHASIL DI HAPUS');
     }
 
     public function deletePhoto(Photo $id)
     {
         Photo::destroy($id->photo_id);
-        return redirect('album-admin')->with('message', 'Photo Berhasil Di Hapus');
+        return redirect('album-admin')->with('status', 'Photo Berhasil Di Hapus');
     }
 
     public function savePhoto(Request $photoRequest)

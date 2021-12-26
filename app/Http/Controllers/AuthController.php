@@ -28,7 +28,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'))) {
 
-            return redirect('/tulis-berita');
+            return redirect('/dashboard-admin');
         }
 
         return back()->withInput()->withErrors(['email' => 'Email dan Password Salah']);

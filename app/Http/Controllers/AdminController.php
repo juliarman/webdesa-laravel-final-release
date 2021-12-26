@@ -7,22 +7,60 @@ use App\Berita;
 use App\User;
 use App\Categories;
 use App\Models\Aparatur;
+use App\Models\Bumdes;
 use App\Models\NoPenting;
+use App\Models\Penduduk;
 use App\Models\Pengaduan;
 use App\Models\Profile;
 use App\Models\Provinsi;
+use App\Models\Slide;
 use App\Models\VisiMisi;
 use Facade\FlareClient\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use PhpParser\Node\Stmt\Echo_;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
+    public function dashboard()
+    {
+
+        $countPenduduk = Penduduk::all()->count();
+        $countBerita = Berita::all()->count();
+        $countPengaduan = Pengaduan::all()->count();
+        $countBumdes = Bumdes::all()->count();
+        // dd($countPenduduk);
+        return view('pages.administrator.index', compact('countPenduduk', 'countBerita', 'countPengaduan', 'countBumdes'));
+    }
+
+
+    public function slide()
+    {
+        $slide = Slide::all();
+        return view('pages.administrator.slide', compact('slide'));
+    }
+
+
+    public function addSlide(Request $request)
+    {
+
+        $newSlide = new Slide;
+        $newSlide->url = $request->gambar;
+        $newSlide->save();
+        return redirect('slide-admin')->with('message', 'GAMBAR SLIDE BERHASIL DISIMPAN');
+    }
+
+    public function delete(Slide $id)
+    {
+
+        Slide::destroy($id->slide_id);
+
+        return redirect('slide-admin')->with('status', 'GAMBAR SLIDE BERHASIL DIHAPUS');
+    }
+
+
     public function profiledesa()
     {
 
@@ -47,6 +85,7 @@ class AdminController extends Controller
             'no_telpon' => $request->notelpon,
             'url' => $request->urlwebsite,
             'alamat' => $request->alamat,
+            'quotes' => $request->quotes,
             'photo_kepdes' => $request->photo,
             'map' => $request->map,
             'deskripsi' => $request->deskripsi,
@@ -54,7 +93,12 @@ class AdminController extends Controller
             'keyword' => $request->keyword,
             'isi_konten' => $request->content,
             'visimisi' => "Visimisi",
-            'favicon' => "favicon",
+            'favicon' => $request->favicon,
+            'welcome' => $request->welcome,
+            'facebook' => $request->facebook,
+            'instagram' => $request->instagram,
+            'twitter' => $request->twitter,
+            'youtube' => $request->youtube,
         ]);
 
         // dd($profil);
@@ -96,13 +140,20 @@ class AdminController extends Controller
     public function deletePengaduan(Pengaduan $id)
     {
         Pengaduan::destroy($id->pengaduan_id);
-        return redirect('pengaduan-admin');
+
+        $photoPath = 'storage/photos/pengaduan/' . $id->photo;
+        if (file_exists($photoPath)) {
+
+            @unlink($photoPath);
+        }
+
+        return redirect('pengaduan-admin')->with('status', 'DATA BERHASIL DIHAPUS');
     }
 
     public function pengaduan()
     {
 
-        $pengaduan = Pengaduan::paginate(5);
+        $pengaduan = Pengaduan::orderBy('status', 'asc')->orderBy('created_at', 'desc')->paginate(5);
         return view('pages.administrator.pengaduan', compact('pengaduan'));
     }
 
@@ -125,13 +176,13 @@ class AdminController extends Controller
             'photo' => $request->gambar,
 
         ]);
-        return redirect('/aparatur-desa')->with('pesan', 'Data Berhasil Diubah');
+        return redirect('/aparatur-desa')->with('message', 'DATA BERHASIL DIUBAH');
     }
 
     public function hapus(Aparatur $aparatur)
     {
         Aparatur::destroy($aparatur->aparatur_id);
-        return redirect('/aparatur-desa')->with('status', 'Data Berhasil Di Hapus!');
+        return redirect('/aparatur-desa')->with('status', 'DATA BERHASIL DIHAPUS!');
     }
 
 
@@ -155,8 +206,8 @@ class AdminController extends Controller
         $dataAparatur->no_hp = $aparatur->nomor;
         $dataAparatur->photo = $aparatur->gambar;
         $dataAparatur->save();
-        $aparatur->session()->flash('pesan', 'Data Berhasil Di Simpan!');
-        return redirect('/aparatur-desa');
+
+        return redirect('/aparatur-desa')->with('message', 'DATA BERHASIL DISIMPAN');
     }
 
 
@@ -175,7 +226,7 @@ class AdminController extends Controller
     {
 
         NoPenting::destroy($id->nopenting_id);
-        return redirect('nomor-penting')->with('message', 'NOMOR BERHASIL DI HAPUS');
+        return redirect('nomor-penting')->with('status', 'NOMOR BERHASIL DI HAPUS');
     }
 
     public function storeNoPenting(Request $request)
@@ -212,20 +263,5 @@ class AdminController extends Controller
         ]);
 
         return redirect('visimisi-admin')->with('message', 'DATA INFORMASI BERHASIL DIUBAH');
-    }
-
-
-
-
-
-    public function form()
-    {
-        return View('vendor.laravel-filemanager.demo');
-    }
-
-
-    public function test()
-    {
-        return view('pages.administrator.test');
     }
 }

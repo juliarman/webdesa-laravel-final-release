@@ -3,10 +3,12 @@
 
 <head>
 
+    @yield('meta-seo')
 
-    @include('includes.head')
+    @include('includes.head',['dataProfile' => $profile,] )
 
     <title>@yield('title')</title>
+
 </head>
 
 <body>
@@ -64,7 +66,8 @@
                         </li>
 
                         <li class="nav-item mr-4 mt-1">
-                            <a href="{{ url('/login') }}"><button type="button" class="btn btn-success"> Login
+                            <a href="{{ url('/login') }}"><button type="button" class="btn btn-primary bg-blue">
+                                    Login
                                     Admin</button></a>
                         </li>
 
@@ -128,6 +131,8 @@
 
             @yield('content-sambutan')
             @yield('berita')
+            @yield('bumdes')
+            @yield('list-artikel')
             @yield('profile')
             @yield('agenda')
             @yield('detail-penduduk')
@@ -138,14 +143,20 @@
             @yield('penduduk')
             @yield('pengaduan')
             @yield('visi-misi')
-            @yield('main-content');
+            @yield('main-content')
 
 
 
         </div>
 
+    </div>
 
 
+    <div class="container-fluid main-container mb-4 bg-dark">
+        @yield('populasi')
+    </div>
+    <div class="container-fluid main-container mb-4 bg-light">
+        @yield('pendidikan')
     </div>
 
     <div class="container main-container mb-4">
@@ -168,7 +179,6 @@
             });
             calendar.render();
         });
-
     </script>
 
 
@@ -177,12 +187,15 @@
         $(window).load(function() {
             $('#slider').nivoSlider();
         });
-
     </script>
 
     {{-- {{ dd($beritanya) }} --}}
 
-    @include('includes.footer',['dataBerita' => $beritanya,'dataAgenda' => $agenda, 'dataProfile' => $profile])
+    @include('includes.footer',
+    ['dataBerita' => $beritanya,
+    'dataAgenda' => $agenda,
+    'dataProfile' => $profile,
+    'dataCategories' => $categories])
 
 </body>
 

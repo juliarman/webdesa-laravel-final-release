@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Album Desa')
 
 @section('detail-album')
 

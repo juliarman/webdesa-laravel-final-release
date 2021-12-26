@@ -1,8 +1,19 @@
 @extends('layouts/app')
 
-@section('title', 'Berita Terbaru')
+@section('title', $news->judul)
+
+@section('meta-seo')
 
 
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ $news->judul }}">
+    <meta property="og:image" content="{{ $news->gambar }}">
+    <meta property="og:description" content="{{ $news->sub_judul }}">
+
+
+
+
+@endsection
 
 @section('detail-post')
 
@@ -14,8 +25,9 @@
                 <h1 class="mt-4">{{ $news->judul }}</h1>
                 <hr>
                 <div class="publication-details mt-2 mb-2">
-                    <a href="#" class=" author mr-2"><i class="fas fa-user mr-2"></i>Juliarman Umar</a>
-                    <span class="date"><i class="fas fa-calendar-alt mr-2"></i>Maret 30, 2021</span>
+                    <a href="#" class=" author mr-2"><i class="fas fa-user mr-2"></i>{{ $news->users->name }}</a>
+                    <span class="date"><i
+                            class="fas fa-calendar-alt mr-2"></i>{{ $news->created_at->translatedFormat('l jS F Y') }}</span>
                 </div>
 
                 <hr>
@@ -25,7 +37,7 @@
                 </div>
 
                 <hr>
-                <article class="ml-4 mr-4">
+                <article class="ml-4 mr-4 post-image">
                     {!! $news->isi_konten !!}
                 </article>
             </div>

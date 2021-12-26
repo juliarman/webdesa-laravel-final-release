@@ -12,17 +12,22 @@
                     data-bs-target="#exampleModal">TAMBAH
                     APARATUR<i class="fa fa-plus-square m-2"></i></button></a>
 
-
-            @if (Session::has('pesan'))
-                <div class="alert alert-primary"><span class="glyphicon glyphicon-ok"></span><em>
-                        {!! session('pesan') !!}</em></div>
+            @if (session('pesan'))
+                <div data-dismiss="alert" class="alert alert-info alert-dismissible fade show" role="alert">
+                    <strong>BERHASIL!</strong> {{ session('pesan') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             @endif
 
             @if (session('status'))
-                <div class="alert alert-danger">
-                    {{ session('status') }}
+                <div data-dismiss="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>DELETE!</strong> {{ session('status') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-
             @endif
 
             <!-- ADD APARATUR DESA -->
@@ -53,7 +58,6 @@
                                 <div class="form-group">
                                     <script>
                                         var route_prefix = "/filemanager";
-
                                     </script>
                                     <div class="col-md-6">
                                         <h2 class="mt-4">Photo</h2>
@@ -64,19 +68,17 @@
                                                     <i class="fa fa-picture-o"></i> Pilih Gambar
                                                 </a>
                                             </span>
-                                            <input id="thumbnail" class="form-control" type="text" name="gambar" required>
+                                            <input id="thumbnail" class="form-control" type="text" name="gambar">
                                         </div>
 
                                         <script>
                                             {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
-
                                         </script>
                                         <script>
                                             $('#lfm').filemanager('image', {
                                                 prefix: route_prefix
                                             });
                                             // $('#lfm').filemanager('file', {prefix: route_prefix});
-
                                         </script>
                                         <script>
                                             var lfm = function(id, type, options) {
@@ -125,7 +127,6 @@
                                             lfm('lfm2', 'file', {
                                                 prefix: route_prefix
                                             });
-
                                         </script>
                                         <script>
                                             $(document).ready(function() {
@@ -145,7 +146,6 @@
 
 
                                             });
-
                                         </script>
 
                                     </div>

@@ -15,10 +15,11 @@ class CreatePengaduan extends Migration
     {
         Schema::create('pengaduan', function (Blueprint $table) {
             $table->bigIncrements('pengaduan_id');
-            $table->string('subjek');
-            $table->string('pesan');
-            $table->string('nama');
-            $table->string('kontak');
+            $table->string('subjek')->nullable();
+            $table->string('pesan')->nullable();
+            $table->string('nama')->nullable();
+            $table->string('photo')->nullable();
+            $table->string('kontak')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

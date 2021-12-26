@@ -19,6 +19,15 @@ class CreateSurat extends Migration
             $table->string('nik');
             $table->string('no_hp');
             $table->string('jenis_surat');
+            $table->string('alamat_lengkap');
+            $table->string('umur');
+            $table->string('ttl');
+            $table->string('pekerjaan');
+            $table->string('photo_berkas_pendukung_1')->nullable();
+            $table->string('photo_berkas_pendukung2')->nullable();
+            $table->enum('kelamin', ['Laki-laki', 'Perempuan', 'Tanpa Keterangan'])->nullable();
+            $table->enum('agama', ['Islam', 'Kristen Protestan', 'Katolik', 'Hindu', 'Buddha', 'Kong Hu Cu', 'Tanpa Keterangan'])->nullable();
+            $table->enum('status', ['Telah Diproses', 'Belum Diproses'])->nullable();
             $table->string('pesan');
             $table->timestamps();
         });

@@ -14,4 +14,9 @@ class Categories extends Model
     {
         return $this->hasMany(Berita::class);
     }
+
+    public function artikel()
+    {
+        return $this->hasMany(Berita::class, 'categories_id');
+    }
 }

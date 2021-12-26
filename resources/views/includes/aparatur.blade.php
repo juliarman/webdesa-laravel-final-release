@@ -1,15 +1,14 @@
    <div class="row justify-content-center" style="background: #fff">
 
        <div class="container-fluid">
-           <div class="row bg-dark p-3 justify-content-center">
-               <h3 class="text-light">APARATUR DESA</h3>
+           <div class="row bg-blue p-3 justify-content-center">
+               <h3 class="text-light text-center">APARATUR DESA</h3>
            </div>
 
            <div class="row justify-content-center">
 
                <script>
                    AOS.init();
-
                </script>
 
 
@@ -25,7 +24,7 @@
 
 
            </div>
-           <div class="row mb-3 justify-content-center">
+           <div class="row mb-3 justify-content-center text-center">
                <a href="/list-aparatur"><button type="button" class="btn btn-success">LIHAT SELENGKAPNYA</button></a>
            </div>
 

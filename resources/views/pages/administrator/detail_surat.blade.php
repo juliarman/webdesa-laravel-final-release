@@ -32,6 +32,34 @@
                             </tr>
 
                             <tr>
+                                <td class="table-dark" style="width: 120px">Alamat Lengkap :</td>
+                                <td class="table-secondary">{{ $id->alamat_lengkap }}</td>
+                            </tr>
+                            <tr>
+                                <td class="table-dark" style="width: 120px">Agama :</td>
+                                <td class="table-secondary">{{ $id->agama }}</td>
+                            </tr>
+                            <tr>
+                                <td class="table-dark" style="width: 120px">J.Kelamin :</td>
+                                <td class="table-secondary">{{ $id->kelamin }}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="table-dark" style="width: 120px">Pekerjaan :</td>
+                                <td class="table-secondary">{{ $id->pekerjaan }}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="table-dark" style="width: 120px">Tempat Tgl Lahir :</td>
+                                <td class="table-secondary">{{ $id->ttl }}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="table-dark" style="width: 120px">Umur :</td>
+                                <td class="table-secondary">{{ $id->umur }}</td>
+                            </tr>
+
+                            <tr>
                                 <td class="table-dark" style="width: 120px">Jenis Surat :</td>
                                 <td class="table-secondary">{{ $id->jenis_surat }}</td>
                             </tr>
@@ -41,6 +69,21 @@
                                 <td class="table-secondary">{{ $id->created_at }}</td>
                             </tr>
 
+                            <tr>
+                                <td class="table-dark" style="width: 120px">Photo Berkas Pendukung 1</td>
+                                <td class="table-secondary">
+                                    <img src="{{ asset('storage/photos/surat/' . $id->photo_berkas_pendukung_1) }}"
+                                        width="200" alt="">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="table-dark" style="width: 120px">Photo Berkas Pendukung 2</td>
+                                <td class="table-secondary">
+                                    <img src="{{ asset('storage/photos/surat/' . $id->photo_berkas_pendukung2) }}"
+                                        width="200" alt="">
+                                </td>
+                            </tr>
                         </table>
 
                     </div>

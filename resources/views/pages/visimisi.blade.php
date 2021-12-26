@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
+@section('title', 'Visi Misi | Halaman Visi & Misi Desa')
 
 @section('profile')
     <div class="col-lg-8 mb-3">
-        <div class="row bg-dark mb-4 mr-0 ml-0 p-2 rounded shadow text-light">
+        <div class="row bg-blue mb-4 mr-0 ml-0 p-2 rounded shadow text-light">
             <h3>VISI & MISI</h3>
         </div>
 

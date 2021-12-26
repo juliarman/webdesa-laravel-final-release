@@ -103,6 +103,7 @@
 /* Control nav styles (e.g. 1,2,3...) */
 .nivo-controlNav {
 	text-align:center;
+	visibility: hidden;
 }
 .nivo-controlNav a {
 	cursor:pointer;

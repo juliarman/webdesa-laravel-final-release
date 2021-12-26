@@ -9,10 +9,21 @@
             <h1 style="color: #28a745">AGENDA DESA</h1>
             <p class="lead">Selamat datang di halaman Agenda Desa</p>
             @if (session('message'))
-                <div class="alert alert-primary" role="alert">
-                    {{ session('message') }}
+                <div data-dismiss="alert" class="alert alert-info alert-dismissible fade show" role="alert">
+                    <strong>BERHASIL!</strong> {{ session('message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+            @endif
 
+            @if (session('status'))
+                <div data-dismiss="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>DELETE AGENDA!</strong> {{ session('status') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             @endif
 
             <a href="{{ url('/agenda-admin/add') }}"><button class="btn btn-success mr-2 mb-3">BUAT AGENDA<i

@@ -43,6 +43,14 @@
                         <span class="input-group-text bg-dark">Pesan</span>
                         <textarea class="form-control" readonly name="pesan">{{ $pengaduan->pesan }}</textarea>
                     </div>
+                    <div class="input-group mb-3">
+                        <img src="{{ asset('storage/photos/pengaduan/' . $pengaduan->photo) }}" alt="photo pengaduan"
+                            style="width: 20rem">
+
+
+
+                    </div>
+
 
 
 

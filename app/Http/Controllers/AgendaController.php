@@ -87,6 +87,6 @@ class AgendaController extends Controller
     public function hapus(Agenda $id)
     {
         Agenda::destroy($id->agenda_id);
-        return redirect('agenda-admin')->with('message', 'DATA BERHASIL DIHAPUS');
+        return redirect('agenda-admin')->with('status', 'DATA AGENDA BERHASIL DIHAPUS');
     }
 }

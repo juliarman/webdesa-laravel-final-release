@@ -22,8 +22,11 @@
                 <p class="lead">Detail Informasi Halaman Website Desa</p>
 
                 @if (session('message'))
-                    <div class="alert alert-primary">
-                        {{ session('message') }}
+                    <div data-dismiss="alert" class="alert alert-info alert-dismissible fade show" role="alert">
+                        <strong>DIPERBARUI!</strong> {{ session('message') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 @endif
 
@@ -69,12 +72,25 @@
                                     name="deskripsi"> --}}
                             </div>
 
+                            <div class="col-lg-6 mt-2 mb-2">
+                                <label for="namadesa">Quotes</label>
+                                <div class="form-floating">
+                                    <textarea class="form-control" name="quotes"
+                                        style="height: 100px">{{ $itemDesa->quotes }}</textarea>
+
+                                </div>
+                                {{-- <input type="text" value="{{ $itemDesa->deskripsi }}" class="form-control" id="namadesa"
+                                    name="deskripsi"> --}}
+                            </div>
+
 
                             <div class="col-lg-3 mt-2 mb-2">
                                 <label for="namadesa">Kepala Desa</label>
                                 <input type="text" class="form-control" name="kepaladesa" id="namadesa"
                                     value="{{ $itemDesa->kepala_desa }}">
                             </div>
+
+
                             <div class="col-lg-3 mt-2 mb-2">
                                 <label for="namadesa">Photo</label>
                                 <div class="input-group">
@@ -87,8 +103,22 @@
                                     <input id="thumbnail" class="form-control" type="text" name="photo"
                                         value="{{ $itemDesa->photo_kepdes }}">
                                 </div>
-
                             </div>
+
+                            <div class="col-lg-6 mt-2 mb-2">
+                                <label for="namadesa">Logo Favicon</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <a id="favicon" data-input="thumbnail2" data-preview="holder"
+                                            class="btn btn-secondary text-white">
+                                            <i class="fa fa-picture-o"></i> Pilih Photo
+                                        </a>
+                                    </span>
+                                    <input id="thumbnail2" class="form-control" type="text" name="favicon"
+                                        value="{{ $itemDesa->favicon }}">
+                                </div>
+                            </div>
+
 
                             <div class="col-lg-6 mt-2 mb-2">
                                 <label for="namadesa">Alamat</label>
@@ -100,7 +130,6 @@
 
                                 <script>
                                     var route_prefix = "/filemanager";
-
                                 </script>
                                 <label class="form-label" for="customFile">Logo Website</label>
 
@@ -118,22 +147,26 @@
 
                                 <script>
                                     {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
-
                                 </script>
                                 <script>
                                     $('#photo').filemanager('image', {
                                         prefix: route_prefix
                                     });
                                     // $('#lfm').filemanager('file', {prefix: route_prefix});
-
+                                </script>
+                                <script>
+                                    $('#favicon').filemanager('image', {
+                                        prefix: route_prefix
+                                    });
+                                    // $('#lfm').filemanager('file', {prefix: route_prefix});
                                 </script>
                                 <script>
                                     $('#lfm').filemanager('image', {
                                         prefix: route_prefix
                                     });
                                     // $('#lfm').filemanager('file', {prefix: route_prefix});
-
                                 </script>
+
                                 <script>
                                     var lfm = function(id, type, options) {
                                         let button = document.getElementById(id);
@@ -181,7 +214,6 @@
                                     lfm('lfm2', 'file', {
                                         prefix: route_prefix
                                     });
-
                                 </script>
                                 <script>
                                     $(document).ready(function() {
@@ -201,10 +233,47 @@
 
 
                                     });
-
                                 </script>
 
                             </div>
+
+                            <div class="col-lg-6 mt-2 mb-2">
+                                <label for="map">Url Map</label>
+                                <input type="text" value="{{ $itemDesa->map }}" class="form-control" id="map"
+                                    name="map">
+                            </div>
+
+
+                            <div class="col-lg-6 mt-2 mb-2">
+                                <label for="welcome">Text Welcome</label>
+                                <input type="text" value="{{ $itemDesa->welcome }}" class="form-control" id="welcome"
+                                    name="welcome">
+                            </div>
+
+
+
+                            <div class="col-lg-3 mt-2 mb-2">
+                                <label for="welcome">Facebook</label>
+                                <input type="text" value="{{ $itemDesa->facebook }}" class="form-control" id="welcome"
+                                    name="facebook">
+                            </div>
+                            <div class="col-lg-3 mt-2 mb-2">
+                                <label for="welcome">Instagram</label>
+                                <input type="text" value="{{ $itemDesa->instagram }}" class="form-control" id="welcome"
+                                    name="instagram">
+                            </div>
+                            <div class="col-lg-3 mt-2 mb-2">
+                                <label for="welcome">Twitter</label>
+                                <input type="text" value="{{ $itemDesa->twitter }}" class="form-control" id="welcome"
+                                    name="twitter">
+                            </div>
+                            <div class="col-lg-3 mt-2 mb-2">
+                                <label for="welcome">Youtube</label>
+                                <input type="text" value="{{ $itemDesa->youtube }}" class="form-control" id="welcome"
+                                    name="youtube">
+                            </div>
+
+
 
                             <div class="row">
                                 <div class="col-12">
@@ -222,7 +291,6 @@
                                                 filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
                                                 filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{ csrf_token() }}'
                                             };
-
                                         </script>
                                         <script>
                                             CKEDITOR.replace('my-editor', {
@@ -232,7 +300,6 @@
                                                 filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
                                                 filebrowserUploadMethod: 'form'
                                             });
-
                                         </script>
 
                                     </div>

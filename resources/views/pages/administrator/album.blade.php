@@ -10,11 +10,22 @@
             <p class="lead">Kumpulan photo album kegiatan Desa</p>
 
             @if (session('message'))
-
-                <div class="alert alert-primary" role="alertdialog">
-                    {{ session('message') }}
+                <div data-dismiss="alert" class="alert alert-info alert-dismissible fade show" role="alert">
+                    <strong>BERHASIL!</strong> {{ session('message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+            @endif
 
+
+            @if (session('status'))
+                <div data-dismiss="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>DELETE!</strong> {{ session('status') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             @endif
 
             <div class="row justify-content-start">
@@ -40,7 +51,6 @@
                                     <div class="form-group">
                                         <script>
                                             var route_prefix = "/filemanager";
-
                                         </script>
                                         <div class="col-sm-auto">
 
@@ -57,14 +67,12 @@
 
                                             <script>
                                                 {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
-
                                             </script>
                                             <script>
                                                 $('#lfm').filemanager('image', {
                                                     prefix: route_prefix
                                                 });
                                                 // $('#lfm').filemanager('file', {prefix: route_prefix});
-
                                             </script>
                                             <script>
                                                 var lfm = function(id, type, options) {
@@ -116,7 +124,6 @@
                                                 lfm('lfm2', 'file', {
                                                     prefix: route_prefix
                                                 });
-
                                             </script>
                                             <script>
                                                 $(document).ready(function() {
@@ -136,7 +143,6 @@
 
 
                                                 });
-
                                             </script>
                                             <select class="form-select form-select-lg mb-3 mt-3"
                                                 aria-label=".form-select-lg example" name="album">

@@ -12,12 +12,23 @@
 
             <div class="row">
 
+
                 @if (session('message'))
-
-                    <div class="alert alert-primary">
-                        {{ session('message') }}
+                    <div data-dismiss="alert" class="alert alert-info alert-dismissible fade show" role="alert">
+                        <strong>BERHASIL!</strong> {{ session('message') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+                @endif
 
+                @if (session('status'))
+                    <div data-dismiss="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>DELETE!</strong> {{ session('status') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 @endif
 
                 <div class="col-lg-5">

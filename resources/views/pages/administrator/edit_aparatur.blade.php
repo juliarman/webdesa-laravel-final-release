@@ -8,7 +8,7 @@
             <h1 style="color: #28a745">EDIT DATA APARATUR</h1>
             <p class="lead">Silahkan melakukan pembaharuan informasi data</p>
 
-            
+
 
             <form action="/update-aparatur/{{ $aparatur->aparatur_id }}" method="post">
 
@@ -25,7 +25,6 @@
                 <div class="form-group">
                     <script>
                         var route_prefix = "/filemanager";
-
                     </script>
                     <div class="col-md-6">
                         <h2 class="mt-4">Photo</h2>
@@ -35,19 +34,18 @@
                                     <i class="fa fa-picture-o"></i> Pilih Gambar
                                 </a>
                             </span>
-                            <input id="thumbnail" class="form-control" type="text" name="gambar">
+                            <input id="thumbnail" class="form-control" type="text" name="gambar"
+                                value="{{ $aparatur->photo }}">
                         </div>
 
                         <script>
                             {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
-
                         </script>
                         <script>
                             $('#lfm').filemanager('image', {
                                 prefix: route_prefix
                             });
                             // $('#lfm').filemanager('file', {prefix: route_prefix});
-
                         </script>
                         <script>
                             var lfm = function(id, type, options) {
@@ -96,7 +94,6 @@
                             lfm('lfm2', 'file', {
                                 prefix: route_prefix
                             });
-
                         </script>
                         <script>
                             $(document).ready(function() {
@@ -116,7 +113,6 @@
 
 
                             });
-
                         </script>
 
                     </div>

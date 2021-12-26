@@ -21,7 +21,7 @@ class CreateProfile extends Migration
             $table->string('no_telpon')->nullable();
             $table->string('url')->nullable();
             $table->string('alamat')->nullable();
-            $table->string('map')->nullable();
+            $table->text('map')->nullable();
             $table->text('isi_konten')->nullable();
             $table->string('deskripsi')->nullable();
             $table->string('quotes')->nullable();
@@ -30,6 +30,11 @@ class CreateProfile extends Migration
             $table->string('keyword')->nullable();
             $table->string('visimisi')->nullable();
             $table->string('favicon')->nullable();
+            $table->string('welcome')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('youtube')->nullable();
             $table->timestamps();
         });
     }

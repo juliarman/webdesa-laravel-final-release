@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kabupaten;
+use App\Exports\ExportData;
 use App\Models\Kota;
 use App\Models\Provinsi;
 use App\Models\Penduduk;
 use Illuminate\Http\Request;
-
-use Illuminate\View\View;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
+use Maatwebsite\Excel\Excel as ExcelExcel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DataPendudukController extends Controller
 {
@@ -19,10 +21,16 @@ class DataPendudukController extends Controller
     {
 
         if ($request->has('pencarian')) {
-            $penduduk = Penduduk::where('nama', 'LIKE', '%' . $request->pencarian . '%')->get();
+            $penduduk = Penduduk::where('nama', 'LIKE', '%' . $request->pencarian . '%')
+                ->orWhere('no_nik', 'LIKE', '%' . $request->pencarian . '%')
+                ->orWhere('no_kk', 'LIKE', '%' . $request->pencarian . '%')
+                ->orWhere('alamat', 'LIKE', '%' . $request->pencarian . '%')
+                ->orWhere('tempat_lahir', 'LIKE', '%' . $request->pencarian . '%')
+                ->paginate(5);
+
             return view('pages.administrator.list_penduduk', compact('penduduk'));
         } else {
-            $penduduk = Penduduk::orderBy('created_at', 'desc')->take(1)->paginate(5);
+            $penduduk = Penduduk::orderBy('created_at', 'desc')->paginate(5);
             return view('pages.administrator.list_penduduk', compact('penduduk'));
         }
         // return view('pages.administrator.list_penduduk');
@@ -32,10 +40,16 @@ class DataPendudukController extends Controller
     {
 
         if ($request->has('pencarian')) {
-            $penduduk = Penduduk::where('nama', 'LIKE', '%' . $request->pencarian . '%')->get();
+            $penduduk = Penduduk::where('nama', 'LIKE', '%' . $request->pencarian . '%')
+                ->orWhere('no_nik', 'LIKE', '%' . $request->pencarian . '%')
+                ->orWhere('no_kk', 'LIKE', '%' . $request->pencarian . '%')
+                ->orWhere('alamat', 'LIKE', '%' . $request->pencarian . '%')
+                ->orWhere('tempat_lahir', 'LIKE', '%' . $request->pencarian . '%')
+                ->paginate(5);
+
             return view('pages.penduduk', compact('penduduk'));
         } else {
-            $penduduk = Penduduk::orderBy('created_at', 'desc')->take(3)->paginate(5);
+            $penduduk = Penduduk::orderBy('created_at', 'desc')->paginate(5);
             return view('pages.penduduk', compact('penduduk'));
         }
     }
@@ -51,7 +65,10 @@ class DataPendudukController extends Controller
 
     public  function detailpenduduk(Penduduk $id)
     {
-        return view('pages.detailpenduduk', compact('id'));
+        $dataPenduduk = Penduduk::find($id);
+        $dataPenduduk = $id->tgl_lahir;
+        $agePenduduk = Carbon::parse($dataPenduduk)->age;
+        return view('pages.detailpenduduk', compact('id', 'agePenduduk'));
     }
 
 
@@ -63,11 +80,19 @@ class DataPendudukController extends Controller
         $newPenduduk->no_kk = $penduduk->nkk;
         $newPenduduk->no_hp = $penduduk->nohp;
         $newPenduduk->kelamin = $penduduk->jenkel;
+        // $newPenduduk->dusun = $penduduk->dusun;
+        $newPenduduk->tempat_lahir = $penduduk->tempat_lahir;
+        $newPenduduk->keterangan = $penduduk->keterangan;
+        $newPenduduk->status_perkawinan = $penduduk->statusPerkawinan;
+        $newPenduduk->pendidikan = $penduduk->pendidikan_terakhir;
         $newPenduduk->agama = $penduduk->agama;
         $newPenduduk->tgl_lahir = $penduduk->tanggal;
+        $newPenduduk->status = $penduduk->status;
         $newPenduduk->photo = $penduduk->photo;
         $newPenduduk->pekerjaan = $penduduk->pekerjaan;
-        $newPenduduk->tempat_lahir = $penduduk->province . ' - ' . $penduduk->state . ',';
+        $newPenduduk->status_keluarga = $penduduk->statusKeluarga;
+        // $newPenduduk->provinsi = $penduduk->province;
+        // $newPenduduk->kota = $penduduk->state;
         $newPenduduk->alamat = $penduduk->alamat;
         $newPenduduk->save();
 
@@ -79,7 +104,7 @@ class DataPendudukController extends Controller
     public function delete(Penduduk $penduduk)
     {
         Penduduk::destroy($penduduk->penduduk_id);
-        return redirect('list-penduduk')->with('message', 'DATA BERHASIL DIHAPUS!');
+        return redirect('list-penduduk')->with('status', 'DATA BERHASIL DIHAPUS!');
     }
 
 
@@ -98,8 +123,15 @@ class DataPendudukController extends Controller
             'tgl_lahir' => $request->tanggal,
             'photo' => $request->photo,
             'pekerjaan' => $request->pekerjaan,
-            'tempat_lahir' => $request->province . ' - ' . $request->state . ',',
             'alamat' => $request->alamat,
+            // 'dusun' => $request->dusun,
+            'status' => $request->status,
+            'keterangan' => $request->keterangan,
+            'status_perkawinan' => $request->statusPerkawinan,
+            'tempat_lahir' => $request->tempatLahir,
+            // 'kota' => $request->state,
+            // 'provinsi' => $request->provinsi,
+            'pendidikan' => $request->pendidikan_terakhir,
 
         ]);
 
@@ -110,9 +142,15 @@ class DataPendudukController extends Controller
 
     public function edit($penduduk)
     {
-        $provinsi = Provinsi::all();
-        $kota = Kota::all();
+        // $provinsi = Provinsi::all();
+        // $kota = Kota::all();
         $edPenduduk = Penduduk::find($penduduk);
-        return view('pages.administrator.edit_penduduk', compact('edPenduduk', 'provinsi', 'kota'));
+        return view('pages.administrator.edit_penduduk', compact('edPenduduk'));
+    }
+
+    public function exportDataPenduduk()
+    {
+        $export = new ExportData();
+        return Excel::download($export, 'data_penduduk.xlsx');
     }
 }

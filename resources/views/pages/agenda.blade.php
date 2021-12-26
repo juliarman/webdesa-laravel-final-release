@@ -10,10 +10,8 @@
     <div class="jumbotron p-3 p-md-5 text-white rounded">
         <div class="col-md-6 px-0">
             <h1 class="display-4 font-italic">Selamat Datang Di Halaman Agenda</h1>
-            <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and
-                efficiently
-                about what's most interesting in this post's contents.</p>
-
+            <p class="lead my-3">Selamat datang di halaman agenda, di halaman ini akan menyediakan daftar agenda desa yang
+                akan di laksanakan sesuai waktu dan nama agenda yang di buat oleh aparatur desa.</p>
         </div>
     </div>
 
@@ -33,7 +31,7 @@
 
                 <div class="col-md-12">
                     <div class="card bg-white rounded shadow-sm mb-3 woah fadeIn">
-                        <div class="card-header bg-green text-light">
+                        <div class="card-header bg-blue text-light">
                             <h3>{{ $itemAgenda->judul }}</h3>
                         </div>
 

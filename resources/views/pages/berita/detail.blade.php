@@ -1,8 +1,20 @@
 @extends('layouts/app')
 
-@section('title', 'Berita Terbaru')
+@section('title', $berita->judul)
 
 
+@section('meta-seo')
+
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ $berita->judul }}">
+    <meta property="og:image" content="{{ $berita->gambar }}">
+    <meta property="og:description" content="{{ $berita->sub_judul }}">
+
+
+
+
+@endsection
 
 @section('detail-post')
 
@@ -26,7 +38,7 @@
                 </div>
 
                 <hr>
-                <article class="ml-4 mr-4">
+                <article class="ml-4 mr-4 post-image">
                     {!! $berita->isi_konten !!}
                 </article>
             </div>

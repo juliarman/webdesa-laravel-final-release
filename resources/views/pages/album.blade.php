@@ -5,7 +5,7 @@
 @section('album')
 
     <div class="container main-container mr-4 ml-4">
-        <div class="row bg-success p-3 justify-content-center">
+        <div class="row bg-blue p-3 justify-content-center">
             <h3 class="text-light">ALBUM DESA</h3>
         </div>
     </div>

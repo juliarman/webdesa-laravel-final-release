@@ -17,7 +17,7 @@
                         <p class="text-center">Silahkan lengkapi form di bawah untuk melakukan pengaduan!</p>
                     </div>
 
-                    <form action="/pengaduan" method="post">
+                    <form action="/pengaduan" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="card-body">
 
@@ -31,6 +31,22 @@
                                 <label for="exampleFormControlTextarea1" class="form-label">Pesan Pengaduan</label>
                                 <textarea class="form-control" name="pesan" id="exampleFormControlTextarea1" rows="3"
                                     required></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>Mohon maaf, ukuran photo maksimal 2 MB</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                <label for="exampleFormControlTextarea1" class="form-label">Photo</label>
+                                <input type="file" name="photo" style="height: 45px" class="form-control"
+                                    aria-label="file example" required>
+                                <div class="invalid-feedback">Example invalid form file feedback</div>
                             </div>
 
 

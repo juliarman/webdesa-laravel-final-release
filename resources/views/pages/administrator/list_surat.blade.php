@@ -9,13 +9,29 @@
             <h1 style="color: #28a745">SURAT ONLINE DESA</h1>
             <p class="lead">List Permintaan Pembuatan Surat Online</p>
             @if (session('message'))
-                <div class="alert alert-danger" role="alert">
-                    {{ session('message') }}
+                <div data-dismiss="alert" class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong>DITAMBAHKAN!</strong> {{ session('message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
+
             @if (session('status'))
-                <div class="alert alert-primary" role="alert">
-                    {{ session('status') }}
+                <div data-dismiss="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>DELETE!</strong> {{ session('status') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
+            @if (session('confirmation'))
+                <div data-dismiss="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>SELESAI!</strong> {{ session('confirmation') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
 
@@ -88,6 +104,7 @@
 
 
 
+
             <div class="row justify-content-start">
                 <div class="col-lg-3">
                     <button class="btn btn-success mr-2 mb-3" data-bs-toggle="modal"
@@ -95,8 +112,8 @@
                         JENIS SURAT<i class="fa fa-calendar-alt m-2"></i></button>
                 </div>
                 <div class="col-lg-4">
-                    <button class="btn btn-secondary mr-2 mb-3" data-bs-toggle="modal"
-                        data-bs-target="#modalListJenisSurat">LIST JENIS SURAT
+                    <button class="btn btn-info mr-2 mb-3" data-bs-toggle="modal" data-bs-target="#modalListJenisSurat">LIST
+                        JENIS SURAT
                         JENIS SURAT<i class="fa fa-calendar-alt m-2"></i></button>
                 </div>
             </div>
@@ -113,6 +130,7 @@
 
                             <th scope="col">No HP</th>
                             <th scope="col">Jenis Surat</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
@@ -130,8 +148,16 @@
 
                                 <td>{{ $listSurat->no_hp }}</td>
                                 <td>{{ $listSurat->jenis_surat }}</td>
+
+                                @if ($listSurat->status == 'Belum Diproses')
+                                    <td class="text-danger">{{ $listSurat->status }}</td>
+                                @elseif($listSurat->status == 'Telah Diproses')
+                                    <td class="text-success">{{ $listSurat->status }}</td>
+                                @endif
+
                                 <td>
                                     <div class="btn-group">
+
                                         <a href="/surat-admin/lihat/{{ $listSurat->surat_id }}"> <button type="button"
                                                 class="btn btn-success m-1">Lihat</button></a>
 
@@ -142,6 +168,19 @@
                                             <button type="submit"
                                                 onclick="return confirm('Anda yakin ingin menghapus data ini?')"
                                                 class="btn btn-danger m-1">Hapus</button>
+                                        </form>
+
+                                        <form action="/surat-admin/confirm/{{ $listSurat->surat_id }}" method="post"
+                                            class="d-inline">
+                                            @csrf
+                                            @if ($listSurat->status == 'Belum Diproses')
+                                                <button type="submit" onclick="return confirm('Tandai sebagai selesai?')"
+                                                    class="btn btn-warning m-1">Tandai Selesai</button>
+                                            @elseif($listSurat->status == 'Telah Diproses')
+                                                <button type="submit" disabled
+                                                    onclick="return confirm('Tandai sebagai selesai?')"
+                                                    class="btn btn-info m-1">Selesai</button>
+                                            @endif
                                         </form>
                                     </div>
                                 </td>

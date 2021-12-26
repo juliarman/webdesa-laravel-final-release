@@ -1,13 +1,12 @@
 @extends('layouts.app')
 
 
-{{-- @section('breadcrumb')
-    {{ Breadcrumbs::render('berita') }}
-@endsection --}}
+@section('title', 'Berita Desa | Halaman Berita Desa')
+
 
 @section('berita')
     <div class="col-lg-8 mb-3">
-        <div class="row bg-dark mb-4 mr-0 ml-0 p-2 rounded shadow text-light">
+        <div class="row bg-blue mb-4 mr-0 ml-0 p-2 rounded shadow text-light">
             <h3>Kategori Berita</h3>
         </div>
 
@@ -17,7 +16,7 @@
             @foreach ($headlinePost as $itemPost)
                 <div class="col-md-12">
                     <div class="card bg-white rounded shadow-sm mb-3 woah fadeIn">
-                        <img src="{{ $itemPost->gambar }}" class="card-img-top" alt="...">
+                        <img src="{{ $itemPost->getImages() }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <div class="detail-berita mb-1">
                                 <a href="" class="author mr-2"><i
@@ -28,7 +27,7 @@
                             <a href="/berita/{{ $itemPost->berita_id }}/{{ $itemPost->slug }}">
                                 <h4 class="card-title"><b>{{ $itemPost->judul }}</b></h4>
                             </a>
-                            <p class="card-text">{{ $itemPost->sub_judul }}</p>
+                            <p class="card-text">{!! Str::limit($itemPost->isi_konten, 180) !!}</p>
 
                         </div>
                     </div>
@@ -56,7 +55,7 @@
                                 <a href="#" class="author mr-2 text-success"><i
                                         class="fas fa-user mr-2 text-dark "></i>{{ $itemBerita->users->name }}</a>
                                 <span class="date"><i
-                                        class="fas fa-calendar-alt mr-2 "></i>{{ $itemBerita->users->created_at->translatedFormat('l jS F Y') }}</span>
+                                        class="fas fa-calendar-alt mr-2 "></i>{{ $itemBerita->created_at->translatedFormat('l jS F Y') }}</span>
                             </div>
                             <p class="card-text">{{ $itemBerita->judul }}</p>
                         </div>

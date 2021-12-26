@@ -26,7 +26,7 @@
             <div class="container">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-md-7">
-                        <h3>Halaman Login <strong>Web Desa</strong></h3>
+                        <h3>Halaman Login <strong class="text-success">Web Desa</strong></h3>
                         <p class="mb-4">Silahkan login untuk mengakses halaman admin Web Desa!
                         </p>
                         <form action="/postlogin" method="post">
